@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# Conversional Take Home Task
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is the solution to Conversional's code challenge.
 
-## Available Scripts
+# Approach
+
+In trying to solve this challenge, I tried to mimic how conversional's real widget works. Thus, this task will be seen at the click of a button.
+
+Also, I provided link to enable the view to be switched between the two data provide.
+
+(PS: In the demo widget, I saw that users cannot go back to review their choices using the progress bar at the top, is this a delibrate requirement? Wouldn't allowing that enhance user experience?)
 
 In the project directory, you can run:
 
-### `yarn start`
+# Runing the Project
+1. Extract the folder
+2. Run npm install
+3. Run npm start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+# Testing
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I choose React Testing Library (RTL) (which comes included in create-react-app, so no additional installation is required) as it helps to write test that is closer to user experience than other alternatives (like enzyme, which would have required installing additional dependencies anyway);
 
-### `yarn build`
+I mostly wrote very basic tests for the components.
+Test are within the __tests__ folder. They could alternatively be anywhere else as filename.test.js
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Validating proptypes
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Unlike Enzyme, RTL doesn't provide direct access to component state and props (if this ever becomes a requirement we can switch to enzyme), thus I used PropTypes to specify prop types for each components receiving props.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+For better type security, the project could be written in TypeScript
 
-### `yarn eject`
+ 
+### Modal Component
+For the additional requirements, I made two changes to the json data as follows:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. isOpen (been the control flag for opening and closing the modal) needed to be removed from the props object and placed at the same level with type and props. If left with the props object, it will be ignored as it is not a valid css property.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. A new flag (activateModal) should be added to any component that is intended to activated the modal. This way, the component can open the modal when clicked.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Data Structure
+I worked strictly with the data structure provided. As long as any given data follow the given structure, the widget should work.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+However, I didn't solve for edge cases where we could have nested components. I provided more comments on this in views/widget.js
